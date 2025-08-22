@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Mail,
   Phone,
@@ -17,7 +17,6 @@ import {
   Github,
   Download,
   Star,
-  Zap,
 } from "lucide-react";
 
 // Enhanced theme hook
@@ -1452,7 +1451,7 @@ export default function Portfolio() {
               </div>
 
               <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-                {skills.map((skill, skillIndex) => (
+                {skills.map((skill) => (
                   <span
                     key={skill}
                     className="skill-pill"
