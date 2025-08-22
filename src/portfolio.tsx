@@ -18,6 +18,13 @@ import {
   Download,
   Star,
 } from "lucide-react";
+import portfolio from './assets/portfolio.png'
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 
 // Enhanced theme hook
 function useTheme() {
@@ -72,6 +79,7 @@ const projects = [
     achievements: [
       "Reduced load times by 30%",
       "Automated claims reduced errors by 30%",
+      "Improved patient portal and adding insurance claims",
     ],
     tech: ["React", "Redux", "NestJS", "PostgreSQL", "PHI Compliance"],
     links: { live: "#", code: "#" },
@@ -84,10 +92,9 @@ const projects = [
       "End-to-end fuel delivery mobile/web platform enabling customers to schedule, track, and pay for on-demand refueling services.",
     achievements: [
       "Improved booking experience with 40% faster checkout",
-      "Integrated secure digital payments and order tracking",
       "Developed responsive React Native app for Android/iOS",
     ],
-    tech: ["React", "React Native", "NestJS", "PostgreSQL", "Stripe API"],
+    tech: ["React", "React Native", "NestJS", "PostgreSQL"],
     links: { live: "#", code: "#" },
     featured: true,
   },
@@ -98,7 +105,6 @@ const projects = [
       "Real estate marketplace for buyers, sellers, and agents with advanced search, property listings, and integrated communication tools.",
     achievements: [
       "Enabled 5,000+ property listings with scalable APIs",
-      "Optimized search filters reducing query time by 50%",
       "Enhanced UX with responsive and mobile-first design",
     ],
     tech: ["React", "Redux Toolkit", "Express", "MongoDB", "Mapbox API"],
@@ -114,6 +120,7 @@ const projects = [
       "Scaled to 10K+ active users",
       "Reduced UI crashes by 25%",
       "Reduced booking failures by 25%",
+      "Implemented real-time notifications",
     ],
     tech: ["React", "Redux", "NestJS", "Socket.IO", "Real-time Notifications"],
     links: { live: "#", code: "#" },
@@ -125,7 +132,7 @@ const projects = [
     period: "2022 – 2023",
     description:
       "B2B marketplace with bulk purchasing workflows, vendor dashboards, and payment integration.",
-    achievements: ["Scaled to 500+ vendors", "Processed $200K+ transactions"],
+    achievements: ["Scaled to 500+ vendors", "Processed $200K+ transactions", "Cash on Delivery payment option","wholesale pricing models"],
     tech: ["React", "Stripe", "Node.js", "MongoDB", "Payment Gateway"],
     links: { live: "#", code: "#" },
   },
@@ -219,544 +226,6 @@ export default function Portfolio() {
           box-sizing: border-box;
         }
 
-        body {
-          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-          line-height: 1.6;
-          color: #1f2937;
-          overflow-x: hidden;
-        }
-
-        .portfolio-container {
-          min-height: 100vh;
-          background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-          transition: all 0.3s ease;
-        }
-
-        .dark .portfolio-container {
-          background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-          color: #f8fafc;
-        }
-
-        /* Navigation Styles */
-        .navbar {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          z-index: 1000;
-          background: rgba(255, 255, 255, 0.9);
-          backdrop-filter: blur(20px);
-          border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-          transition: all 0.3s ease;
-        }
-
-        .dark .navbar {
-          background: rgba(15, 23, 42, 0.9);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .navbar-content {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 0 24px;
-          height: 64px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-
-        .logo {
-          font-size: 24px;
-          font-weight: 700;
-          background: linear-gradient(135deg, #8b5cf6, #ec4899);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          cursor: pointer;
-          transition: transform 0.3s ease;
-        }
-
-        .logo:hover {
-          transform: scale(1.05);
-        }
-
-        .nav-links {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-        }
-
-        .nav-link {
-          padding: 8px 16px;
-          border-radius: 24px;
-          font-weight: 500;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          text-decoration: none;
-          color: inherit;
-        }
-
-        .nav-link:hover {
-          background: rgba(139, 92, 246, 0.1);
-          color: #8b5cf6;
-        }
-
-        .nav-link.active {
-          background: linear-gradient(135deg, #8b5cf6, #ec4899);
-          color: white;
-        }
-
-        .theme-toggle {
-          margin-left: 16px;
-          padding: 8px;
-          border-radius: 50%;
-          background: rgba(0, 0, 0, 0.05);
-          border: none;
-          cursor: pointer;
-          transition: all 0.3s ease;
-        }
-
-        .dark .theme-toggle {
-          background: rgba(255, 255, 255, 0.1);
-        }
-
-        .theme-toggle:hover {
-          transform: scale(1.1);
-          background: rgba(139, 92, 246, 0.2);
-        }
-
-        .mobile-menu {
-          display: none;
-          align-items: center;
-          gap: 8px;
-        }
-
-        .menu-button {
-          padding: 8px;
-          border-radius: 8px;
-          background: rgba(0, 0, 0, 0.05);
-          border: none;
-          cursor: pointer;
-          transition: all 0.3s ease;
-        }
-
-        .dark .menu-button {
-          background: rgba(255, 255, 255, 0.1);
-        }
-
-        /* Hero Section */
-        .hero {
-          min-height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          text-align: center;
-          position: relative;
-          overflow: hidden;
-          padding: 80px 24px 0;
-        }
-
-        .hero::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: 
-            radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.3) 0%, transparent 50%);
-          animation: gradient-animation 10s ease infinite;
-        }
-
-        .hero-content {
-          position: relative;
-          z-index: 10;
-          max-width: 1200px;
-          margin: 0 auto;
-        }
-
-        .hero-title {
-          font-size: 4rem;
-          font-weight: 700;
-          background: linear-gradient(135deg, #8b5cf6, #ec4899, #8b5cf6);
-          background-size: 200% 200%;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          animation: gradient-animation 3s ease infinite;
-          margin-bottom: 24px;
-          line-height: 1.1;
-        }
-
-        .hero-subtitle {
-          font-size: 1.5rem;
-          color: #64748b;
-          margin-bottom: 32px;
-          max-width: 800px;
-          margin-left: auto;
-          margin-right: auto;
-        }
-
-        .dark .hero-subtitle {
-          color: #94a3b8;
-        }
-
-        .hero-info {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 24px;
-          margin-bottom: 48px;
-        }
-
-        .info-item {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          padding: 12px 20px;
-          background: rgba(255, 255, 255, 0.8);
-          border-radius: 50px;
-          border: 1px solid rgba(0, 0, 0, 0.1);
-          transition: all 0.3s ease;
-        }
-
-        .dark .info-item {
-          background: rgba(255, 255, 255, 0.1);
-          border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .info-item:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
-        }
-
-        .hero-buttons {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 16px;
-          margin-top: 32px;
-        }
-
-        .btn-primary {
-          padding: 16px 32px;
-          background: linear-gradient(135deg, #8b5cf6, #ec4899);
-          color: white;
-          border: none;
-          border-radius: 50px;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          text-decoration: none;
-        }
-
-        .btn-primary:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 12px 25px rgba(139, 92, 246, 0.4);
-        }
-
-        .btn-secondary {
-          padding: 14px 30px;
-          background: transparent;
-          color: #8b5cf6;
-          border: 2px solid #8b5cf6;
-          border-radius: 50px;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          text-decoration: none;
-        }
-
-        .btn-secondary:hover {
-          background: #8b5cf6;
-          color: white;
-          transform: translateY(-2px);
-        }
-
-        /* Section Styles */
-        .section {
-          padding: 80px 24px;
-          max-width: 1200px;
-          margin: 0 auto;
-        }
-
-        .section-title {
-          text-align: center;
-          margin-bottom: 64px;
-        }
-
-        .section-title h2 {
-          font-size: 3rem;
-          font-weight: 700;
-          color: #1f2937;
-          margin-bottom: 16px;
-        }
-
-        .dark .section-title h2 {
-          color: #f8fafc;
-        }
-
-        .section-title .underline {
-          width: 80px;
-          height: 4px;
-          background: linear-gradient(135deg, #8b5cf6, #ec4899);
-          margin: 0 auto;
-          border-radius: 2px;
-        }
-
-        /* Cards */
-        .card {
-          background: rgba(255, 255, 255, 0.8);
-          border: 1px solid rgba(0, 0, 0, 0.1);
-          border-radius: 16px;
-          padding: 32px;
-          transition: all 0.3s ease;
-          backdrop-filter: blur(10px);
-        }
-
-        .dark .card {
-          background: rgba(255, 255, 255, 0.05);
-          border-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .card:hover {
-          transform: translateY(-8px);
-          box-shadow: 0 25px 50px rgba(139, 92, 246, 0.15);
-        }
-
-        /* Grid Layouts */
-        .grid {
-          display: grid;
-          gap: 24px;
-        }
-
-        .grid-2 {
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        }
-
-        .grid-3 {
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        }
-
-        .grid-4 {
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        }
-
-        /* Stats */
-        .stats {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-          gap: 24px;
-          margin: 48px 0;
-        }
-
-        .stat {
-          text-align: center;
-          padding: 24px;
-          background: rgba(255, 255, 255, 0.5);
-          border-radius: 16px;
-          border: 1px solid rgba(139, 92, 246, 0.2);
-          transition: all 0.3s ease;
-        }
-
-        .dark .stat {
-          background: rgba(255, 255, 255, 0.05);
-        }
-
-        .stat:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 12px 25px rgba(139, 92, 246, 0.2);
-        }
-
-        .stat-value {
-          font-size: 2rem;
-          font-weight: 700;
-          color: #8b5cf6;
-          margin-bottom: 8px;
-        }
-
-        .stat-label {
-          font-size: 0.875rem;
-          color: #64748b;
-        }
-
-        .dark .stat-label {
-          color: #94a3b8;
-        }
-
-        /* Skills */
-        .skill-pill {
-          display: inline-block;
-          padding: 6px 12px;
-          background: rgba(139, 92, 246, 0.1);
-          color: #8b5cf6;
-          border-radius: 20px;
-          font-size: 0.875rem;
-          margin: 4px;
-          transition: all 0.3s ease;
-        }
-
-        .skill-pill:hover {
-          background: #8b5cf6;
-          color: white;
-          transform: translateY(-2px);
-        }
-
-        /* Timeline */
-        .timeline {
-          position: relative;
-        }
-
-        .timeline::before {
-          content: '';
-          position: absolute;
-          left: 24px;
-          top: 0;
-          bottom: 0;
-          width: 2px;
-          background: linear-gradient(180deg, #8b5cf6, #ec4899);
-        }
-
-        .timeline-item {
-          position: relative;
-          padding-left: 80px;
-          margin-bottom: 48px;
-        }
-
-        .timeline-dot {
-          position: absolute;
-          left: 16px;
-          top: 24px;
-          width: 16px;
-          height: 16px;
-          background: linear-gradient(135deg, #8b5cf6, #ec4899);
-          border-radius: 50%;
-          border: 4px solid #ffffff;
-          box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
-        }
-
-        .dark .timeline-dot {
-          border-color: #0f172a;
-        }
-
-        /* Contact Form */
-        .form-group {
-          margin-bottom: 24px;
-        }
-
-        .form-input {
-          width: 100%;
-          padding: 16px;
-          border: 2px solid rgba(0, 0, 0, 0.1);
-          border-radius: 12px;
-          background: rgba(255, 255, 255, 0.8);
-          font-size: 16px;
-          transition: all 0.3s ease;
-        }
-
-        .dark .form-input {
-          background: rgba(255, 255, 255, 0.05);
-          border-color: rgba(255, 255, 255, 0.2);
-          color: #f8fafc;
-        }
-
-        .form-input:focus {
-          outline: none;
-          border-color: #8b5cf6;
-          box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
-        }
-
-        /* Footer */
-        .footer {
-          background: #1f2937;
-          color: #f8fafc;
-          text-align: center;
-          padding: 48px 24px;
-        }
-
-        .dark .footer {
-          background: #020617;
-        }
-
-        /* Animations */
-        @keyframes gradient-animation {
-          0%, 100% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-        }
-
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-        }
-
-        .animate-float {
-          animation: float 6s ease-in-out infinite;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-          .nav-links {
-            display: none;
-          }
-          
-          .mobile-menu {
-            display: flex;
-          }
-          
-          .hero-title {
-            font-size: 2.5rem;
-          }
-          
-          .hero-subtitle {
-            font-size: 1.25rem;
-          }
-          
-          .section-title h2 {
-            font-size: 2rem;
-          }
-          
-          .hero-buttons {
-            flex-direction: column;
-            align-items: center;
-          }
-          
-          .hero-info {
-            flex-direction: column;
-            align-items: center;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .navbar-content {
-            padding: 0 16px;
-          }
-          
-          .hero {
-            padding: 80px 16px 0;
-          }
-          
-          .section {
-            padding: 60px 16px;
-          }
-          
-          .card {
-            padding: 24px;
-          }
         }
       `}</style>
 
@@ -845,84 +314,81 @@ export default function Portfolio() {
         )}
       </nav>
 
-      {/* Hero Section */}
-      <section id="home" className="hero">
-        <div className="hero-content">
-          <h1 className="hero-title animate-float">Aysha Areej</h1>
-          <p className="hero-subtitle">
-            Frontend-focused{" "}
-            <strong style={{ color: "#8b5cf6" }}>Software Engineer</strong>{" "}
-            specializing in{" "}
-            <strong style={{ color: "#ec4899" }}>React.js</strong> and modern
-            web technologies
-          </p>
+    {/* Hero Section */}
+<section id="home" className="hero">
+  <div className="hero-content" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "2rem", flexWrap: "wrap" }}>
+    
+    {/* Left side (Text content) */}
+    <div style={{ flex: "1 1 400px" }}>
+      <h1 className="hero-title animate-float">Aysha Areej</h1>
+      <p className="hero-subtitle">
+        Frontend-focused{" "}
+        <strong style={{ color: "#8b5cf6" }}>Software Engineer</strong>{" "}
+        specializing in{" "}
+        <strong style={{ color: "#ec4899" }}>React.js</strong> and modern
+        web technologies
+      </p>
 
-          <div className="hero-info">
-            <div className="info-item">
-              <MapPin size={20} style={{ color: "#8b5cf6" }} />
-              <span>Lahore, Punjab, Pakistan</span>
-            </div>
-            <div className="info-item">
-              <Briefcase size={20} style={{ color: "#ec4899" }} />
-              <span>3+ Years Experience</span>
-            </div>
-          </div>
-
-          <div className="hero-info">
-            <a
-              href="mailto:ayshaareej71@gmail.com"
-              className="info-item"
-              style={{ textDecoration: "none" }}
-            >
-              <Mail size={20} style={{ color: "#3b82f6" }} />
-              <span>ayshaareej71@gmail.com</span>
-            </a>
-            <a
-              href="tel:+923374765461"
-              className="info-item"
-              style={{ textDecoration: "none" }}
-            >
-              <Phone size={20} style={{ color: "#10b981" }} />
-              <span>+92 337 476 5461</span>
-            </a>
-            <a
-              href="https://www.linkedin.com/in/aysha-areej-514a28183/"
-              target="_blank"
-              rel="noreferrer"
-              className="info-item"
-              style={{ textDecoration: "none" }}
-            >
-              <Linkedin size={20} style={{ color: "#0077b5" }} />
-              <span>LinkedIn</span>
-              <ExternalLink size={16} />
-            </a>
-          </div>
-
-          <div className="hero-buttons">
-            <button
-              onClick={() => scrollToSection("about")}
-              className="btn-primary"
-            >
-              Explore My Work
-              <ChevronRight size={18} />
-            </button>
-              <a
-                href="/Resume.pdf"
-                download="Aysha_Areej_Resume.pdf"
-                className="btn-secondary"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  textDecoration: "none",
-                }}
-              >
-                <Download size={18} />
-                Download CV
-              </a>
-          </div>
+      <div className="hero-info">
+        <div className="info-item">
+          <MapPin size={20} style={{ color: "#8b5cf6" }} />
+          <span>Lahore, Punjab, Pakistan</span>
         </div>
-      </section>
+        <div className="info-item">
+          <Briefcase size={20} style={{ color: "#ec4899" }} />
+          <span>3+ Years Experience</span>
+        </div>
+      </div>
+
+      <div className="hero-info">
+        <a href="mailto:ayshaareej71@gmail.com" className="info-item" style={{ textDecoration: "none" }}>
+          <Mail size={20} style={{ color: "#3b82f6" }} />
+          <span>ayshaareej71@gmail.com</span>
+        </a>
+        <a href="tel:+923374765461" className="info-item" style={{ textDecoration: "none" }}>
+          <Phone size={20} style={{ color: "#10b981" }} />
+          <span>+92 337 476 5461</span>
+        </a>
+        <a href="https://www.linkedin.com/in/aysha-areej-514a28183/" target="_blank" rel="noreferrer" className="info-item" style={{ textDecoration: "none" }}>
+          <Linkedin size={20} style={{ color: "#0077b5" }} />
+          <span>LinkedIn</span>
+          <ExternalLink size={16} />
+        </a>
+      </div>
+
+      <div className="hero-buttons">
+        <button onClick={() => scrollToSection("about")} className="btn-primary">
+          Explore My Work
+          <ChevronRight size={18} />
+        </button>
+        <a
+          href="/Resume.pdf"
+          download="Aysha_Areej_Resume.pdf"
+          className="btn-secondary"
+          style={{ display: "flex", alignItems: "center", gap: "8px", textDecoration: "none" }}
+        >
+          <Download size={18} />
+          Download CV
+        </a>
+      </div>
+    </div>
+
+    {/* Right side (Portfolio image) */}
+    <div style={{ flex: "1 1 300px", display: "flex", justifyContent: "center" }}>
+      <img
+        src={portfolio}
+        alt="Portfolio Preview"
+        style={{
+          maxWidth: "350px",
+          borderRadius: "20px",
+          boxShadow: "0 10px 20px rgba(0,0,0,0.15)",
+          animation: "float 4s ease-in-out infinite",
+        }}
+      />
+    </div>
+  </div>
+</section>
+
 
       {/* About Section */}
       <section id="about" className="section">
@@ -1258,136 +724,135 @@ export default function Portfolio() {
           </p>
         </div>
 
-        <div className="grid grid-2">
-          {projects.map((project, index) => (
-            <div key={index} className="card" style={{ position: "relative" }}>
-              {project.featured && (
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "16px",
-                    right: "16px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "4px",
-                    padding: "4px 8px",
-                    background: "linear-gradient(135deg, #8b5cf6, #ec4899)",
-                    color: "white",
-                    borderRadius: "12px",
-                    fontSize: "0.75rem",
-                    fontWeight: "500",
-                  }}
-                >
-                  <Star size={12} />
-                  Featured
-                </div>
-              )}
+      <Swiper
+  modules={[Navigation, Pagination]}
+  spaceBetween={30}
+  slidesPerView={1}
+  navigation
+  pagination={{ clickable: true }}
+  breakpoints={{
+    768: { slidesPerView: 2 }, // 2 slides on tablets
+    1024: { slidesPerView: 3 }, // 3 slides on desktops
+  }}
+>
+  {projects.map((project, index) => (
+    <SwiperSlide key={index}>
+      <div className="card" style={{ position: "relative" }}>
+        {project.featured && (
+          <div
+            style={{
+              position: "absolute",
+              top: "16px",
+              right: "16px",
+              display: "flex",
+              alignItems: "center",
+              gap: "4px",
+              padding: "4px 8px",
+              background: "linear-gradient(135deg, #8b5cf6, #ec4899)",
+              color: "white",
+              borderRadius: "12px",
+              fontSize: "0.75rem",
+              fontWeight: "500",
+              zIndex: 10,
+            }}
+          >
+            <Star size={12} />
+            Featured
+          </div>
+        )}
 
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "start",
-                  justifyContent: "space-between",
-                  marginBottom: "16px",
-                }}
-              >
-                <div style={{ flex: 1 }}>
-                  <h3
-                    style={{
-                      fontSize: "1.25rem",
-                      fontWeight: "700",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    {project.title}
-                  </h3>
-                  <p style={{ fontSize: "0.875rem", color: "#9ca3af" }}>
-                    {project.period}
-                  </p>
-                </div>
-                <div
-                  style={{
-                    padding: "8px",
-                    background: "rgba(139, 92, 246, 0.1)",
-                    borderRadius: "8px",
-                  }}
-                >
-                  <Code style={{ color: "#8b5cf6" }} size={20} />
-                </div>
-              </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "start",
+            justifyContent: "space-between",
+            marginBottom: "16px",
+          }}
+        >
+          <div style={{ flex: 1 }}>
+            <h3 style={{ fontSize: "1.25rem", fontWeight: "700", marginBottom: "8px" }}>
+              {project.title}
+            </h3>
+            <p style={{ fontSize: "0.875rem", color: "#9ca3af" }}>
+              {project.period}
+            </p>
+          </div>
+          <div
+            style={{
+              padding: "8px",
+              background: "rgba(139, 92, 246, 0.1)",
+              borderRadius: "8px",
+            }}
+          >
+            <Code style={{ color: "#8b5cf6" }} size={20} />
+          </div>
+        </div>
 
-              <p
-                style={{
-                  color: "#64748b",
-                  marginBottom: "16px",
-                  lineHeight: "1.6",
-                }}
-              >
-                {project.description}
-              </p>
+        <p style={{ color: "#64748b", marginBottom: "16px", lineHeight: "1.6" }}>
+          {project.description}
+        </p>
 
-              <div style={{ marginBottom: "16px" }}>
-                {project.achievements.map((achievement, achIndex) => (
-                  <div
-                    key={achIndex}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "8px",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    <ChevronRight
-                      size={14}
-                      style={{ color: "#10b981", flexShrink: 0 }}
-                    />
-                    <span style={{ fontSize: "0.875rem", color: "#64748b" }}>
-                      {achievement}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              <div
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: "8px",
-                  marginBottom: "24px",
-                }}
-              >
-                {project.tech.map((tech, techIndex) => (
-                  <span key={techIndex} className="skill-pill">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              <div style={{ display: "flex", gap: "12px" }}>
-                <a
-                  href={project.links.live}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn-primary"
-                  style={{ padding: "8px 16px", fontSize: "0.875rem" }}
-                >
-                  <span>Live Demo</span>
-                  <ExternalLink size={14} />
-                </a>
-                <a
-                  href={project.links.code}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn-secondary"
-                  style={{ padding: "6px 14px", fontSize: "0.875rem" }}
-                >
-                  <Github size={14} />
-                  <span>Code</span>
-                </a>
-              </div>
+        <div style={{ marginBottom: "16px" }}>
+          {project.achievements.map((achievement, achIndex) => (
+            <div
+              key={achIndex}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                marginBottom: "8px",
+              }}
+            >
+              <ChevronRight size={14} style={{ color: "#10b981", flexShrink: 0 }} />
+              <span style={{ fontSize: "0.875rem", color: "#64748b" }}>
+                {achievement}
+              </span>
             </div>
           ))}
         </div>
+
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "8px",
+            marginBottom: "24px",
+          }}
+        >
+          {project.tech.map((tech, techIndex) => (
+            <span key={techIndex} className="skill-pill">
+              {tech}
+            </span>
+          ))}
+        </div>
+
+        <div style={{ display: "flex", gap: "12px" }}>
+          <a
+            href={project.links.live}
+            target="_blank"
+            rel="noreferrer"
+            className="btn-primary"
+            style={{ padding: "8px 16px", fontSize: "0.875rem" }}
+          >
+            <span>Live Demo</span>
+            <ExternalLink size={14} />
+          </a>
+          <a
+            href={project.links.code}
+            target="_blank"
+            rel="noreferrer"
+            className="btn-secondary"
+            style={{ padding: "6px 14px", fontSize: "0.875rem" }}
+          >
+            <Github size={14} />
+            <span>Code</span>
+          </a>
+        </div>
+      </div>
+    </SwiperSlide>
+  ))}
+</Swiper>
+
       </section>
 
       {/* Skills Section */}
