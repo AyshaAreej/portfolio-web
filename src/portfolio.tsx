@@ -19,7 +19,6 @@ import {
   Star,
   Server,
   Cloud,
-  Database,
 } from "lucide-react";
 import portfolio from './assets/portfolio.png'
 import { Swiper, SwiperSlide } from "swiper/react";
