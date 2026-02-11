@@ -17,6 +17,9 @@ import {
   Github,
   Download,
   Star,
+  Server,
+  Cloud,
+  Database,
 } from "lucide-react";
 import portfolio from './assets/portfolio.png'
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -55,7 +58,7 @@ function useTheme() {
 
 // Data
 const skillCategories = {
-  Languages: ["JavaScript (ES6+)", "TypeScript", "HTML5", "CSS3"],
+  Languages: ["JavaScript (ES6+)", "TypeScript", "HTML5", "CSS3", "SQL"],
   Frontend: [
     "React.js",
     "Redux",
@@ -66,11 +69,42 @@ const skillCategories = {
     "Tailwind CSS",
     "Bootstrap",
   ],
-  Backend: ["Node.js", "NestJS", "Express.js", "PostgreSQL", "MongoDB"],
-  Tools: ["Git", "Docker", "Swagger", "Postman", "Figma", "Adobe XD", "CI/CD"],
+  Backend: ["Node.js", "NestJS", "Express.js", "PostgreSQL", "MongoDB", "REST APIs", "GraphQL", "Microservices"],
+  "DevOps & Cloud": ["AWS", "Docker", "CI/CD", "Git", "Kubernetes", "Cloud Deployment", "System Design"],
+  Tools: ["Swagger", "Postman", "Figma", "Adobe XD", "Jest", "Testing Library"],
 };
 
 const projects = [
+  {
+    title: "SwiftSub (Digital Transformation Platform)",
+    period: "2024 – Present",
+    description:
+      "Enterprise-grade microservices architecture for digital transformation initiatives. Built with 3-4 independent services using NestJS, implementing scalable backend solutions with inter-service communication, API gateways, and event-driven architecture.",
+    achievements: [
+      "Architected microservices infrastructure with NestJS",
+      "Implemented inter-service communication and API gateways",
+      "Deployed on AWS with Docker containerization",
+      "Event-driven architecture for real-time processing",
+    ],
+    tech: ["React", "NestJS", "Microservices", "Docker", "AWS", "PostgreSQL"],
+    links: { live: "#", code: "#" },
+    featured: true,
+  },
+  {
+    title: "Foodage (Food Delivery Platform)",
+    period: "2024 – 2025",
+    description:
+      "Full-stack food delivery platform with real-time order tracking, restaurant management, and delivery logistics. Features responsive React frontend, NestJS microservices backend, and cloud deployment on AWS.",
+    achievements: [
+      "Real-time order tracking with Socket.IO",
+      "Multi-vendor restaurant management system",
+      "Deployed on AWS with Docker containers",
+      "Payment gateway integration and order processing",
+    ],
+    tech: ["React", "NestJS", "Socket.IO", "Docker", "AWS", "PostgreSQL"],
+    links: { live: "#", code: "#" },
+    featured: true,
+  },
   {
     title: "Health Exam Platform (ERP)",
     period: "2024 – 2025",
@@ -109,7 +143,6 @@ const projects = [
     ],
     tech: ["React", "Redux Toolkit", "Express", "MongoDB", "Mapbox API"],
     links: { live: "#", code: "#" },
-    featured: true,
   },
   {
     title: "Instafixit (On-Demand Services)",
@@ -124,7 +157,6 @@ const projects = [
     ],
     tech: ["React", "Redux", "NestJS", "Socket.IO", "Real-time Notifications"],
     links: { live: "#", code: "#" },
-    featured: true,
   },
 
   {
@@ -140,10 +172,22 @@ const projects = [
 
 const experiences = [
   {
-    company: "Devbox Lahore",
-    role: "Software Engineer",
-    period: "Aug 2021 – Present",
+    company: "Digixvalley Lahore",
+    role: "Full-Stack Software Engineer",
+    period: "Sep 2024 – Present",
     projects: [
+      "SwiftSub: Architecting microservices infrastructure using NestJS with 3-4 independent services",
+      "Implementing scalable backend solutions with inter-service communication and API gateways",
+      "AWS deployment with Docker containerization and CI/CD pipelines",
+      "Event-driven architecture for digital transformation initiatives",
+    ],
+  },
+  {
+    company: "Devbox Lahore",
+    role: "Full-Stack Software Engineer",
+    period: "Aug 2021 – Sep 2024",
+    projects: [
+      "Foodage: Built full-stack food delivery platform with real-time tracking and AWS deployment",
       "EmployeeHub (HRMS): React.js + Redux dashboards, improved data visualization by 35%",
       "Real Deal Marketplace: Responsive React SPA, reduced load time by 40%",
       "Tractor Online: React marketplace with dynamic filters, increased engagement by 25%",
@@ -165,9 +209,9 @@ const experiences = [
 const certifications = [
   "React Development - Udemy",
   "MERN Stack Development - Udemy",
+  "Docker, System Design & Secure Software Development - DEVBOX",
   "Data Science - Johns Hopkins University",
   "JavaScript - UC Davis",
-  "Docker & System Design - DEVBOX",
 ];
 
 export default function Portfolio() {
@@ -322,11 +366,11 @@ export default function Portfolio() {
     <div style={{ flex: "1 1 400px" }}>
       <h1 className="hero-title animate-float">Aysha Areej</h1>
       <p className="hero-subtitle">
-        Frontend-focused{" "}
+        Full-Stack{" "}
         <strong style={{ color: "#8b5cf6" }}>Software Engineer</strong>{" "}
         specializing in{" "}
-        <strong style={{ color: "#ec4899" }}>React.js</strong> and modern
-        web technologies
+        <strong style={{ color: "#ec4899" }}>React.js, Node.js</strong>, and modern
+        web technologies with <strong style={{ color: "#3b82f6" }}>DevOps</strong> expertise
       </p>
 
       <div className="hero-info">
@@ -336,7 +380,7 @@ export default function Portfolio() {
         </div>
         <div className="info-item">
           <Briefcase size={20} style={{ color: "#ec4899" }} />
-          <span>3+ Years Experience</span>
+          <span>4+ Years Experience</span>
         </div>
       </div>
 
@@ -417,11 +461,12 @@ export default function Portfolio() {
             >
               With over{" "}
               <strong style={{ color: "#8b5cf6" }}>
-                3 years of experience
+                4 years of experience
               </strong>{" "}
-              as a Frontend-focused Software Engineer, I specialize in building
+              as a Full-Stack Software Engineer, I specialize in building
               scalable web applications using{" "}
               <strong style={{ color: "#ec4899" }}>React.js</strong>,
+              <strong style={{ color: "#ec4899" }}> NestJS</strong>,
               TypeScript, and modern development practices.
             </p>
             <p
@@ -432,8 +477,9 @@ export default function Portfolio() {
               }}
             >
               I've delivered projects from healthcare ERP to e-commerce
-              platforms, improving performance metrics and user experience. I
-              work end-to-end across the lifecycle — from design to deployment.
+              platforms, microservices architectures, and cloud-deployed solutions.
+              With expertise in <strong style={{ color: "#3b82f6" }}>AWS, Docker, and CI/CD</strong>,
+              I work end-to-end across the lifecycle — from design to deployment.
             </p>
 
             <div className="stats">
@@ -442,7 +488,7 @@ export default function Portfolio() {
                   style={{ margin: "0 auto 8px", color: "#8b5cf6" }}
                   size={32}
                 />
-                <div className="stat-value">3+</div>
+                <div className="stat-value">4+</div>
                 <div className="stat-label">Years Experience</div>
               </div>
               <div className="stat">
@@ -533,7 +579,7 @@ export default function Portfolio() {
                       borderRadius: "12px",
                     }}
                   >
-                    <Code style={{ color: "#ec4899" }} size={24} />
+                    <Server style={{ color: "#ec4899" }} size={24} />
                   </div>
                   <div>
                     <h3
@@ -546,15 +592,15 @@ export default function Portfolio() {
                       Expertise
                     </h3>
                     <p style={{ color: "#ec4899", fontWeight: "500" }}>
-                      Frontend Development
+                      Full-Stack Development
                     </p>
                   </div>
                 </div>
                 <p style={{ color: "#64748b" }}>
-                  React.js • TypeScript • Redux
+                  React.js • NestJS • Microservices
                 </p>
                 <p style={{ fontSize: "0.875rem", color: "#9ca3af" }}>
-                  Modern Web Technologies
+                  AWS • Docker • CI/CD
                 </p>
               </div>
             </div>
@@ -571,11 +617,12 @@ export default function Portfolio() {
               </h3>
               <div style={{ gap: "16px" }}>
                 {[
+                  "Architected microservices infrastructure with NestJS and Docker",
+                  "Deployed scalable applications on AWS with CI/CD pipelines",
                   "Improved data visualization speed by 35% in HRMS systems",
                   "Reduced application load times by 40% through optimization",
                   "Scaled applications to 10K+ active users",
                   "Processed $200K+ in e-commerce transactions",
-                  "Increased user engagement by 25% through UX improvements",
                 ].map((achievement, index) => (
                   <div
                     key={index}
@@ -892,23 +939,32 @@ export default function Portfolio() {
                         ? "rgba(236, 72, 153, 0.1)"
                         : index === 2
                         ? "rgba(59, 130, 246, 0.1)"
-                        : "rgba(16, 185, 129, 0.1)",
+                        : index === 3
+                        ? "rgba(16, 185, 129, 0.1)"
+                        : "rgba(245, 158, 11, 0.1)",
                     borderRadius: "8px",
                   }}
                 >
-                  <Code
-                    style={{
-                      color:
-                        index === 0
-                          ? "#8b5cf6"
-                          : index === 1
-                          ? "#ec4899"
-                          : index === 2
-                          ? "#3b82f6"
-                          : "#10b981",
-                    }}
-                    size={20}
-                  />
+                  {index === 3 ? (
+                    <Cloud
+                      style={{ color: "#10b981" }}
+                      size={20}
+                    />
+                  ) : (
+                    <Code
+                      style={{
+                        color:
+                          index === 0
+                            ? "#8b5cf6"
+                            : index === 1
+                            ? "#ec4899"
+                            : index === 2
+                            ? "#3b82f6"
+                            : "#f59e0b",
+                      }}
+                      size={20}
+                    />
+                  )}
                 </div>
                 <h3 style={{ fontSize: "1.125rem", fontWeight: "600" }}>
                   {category}
